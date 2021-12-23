@@ -1,11 +1,8 @@
+// * Add Components
 import { Table } from "antd";
-import useFetch from "../../hooks/useFetch";
+import * as styles from "./Table.module.css";
 
-const MyTable = () => {
-  const { data, loading, error } = useFetch(
-    "https://jsonplaceholder.typicode.com/todos"
-  );
-
+const MyTable = ({ data, page, setPage }) => {
   const columns = [
     {
       title: "Title",
@@ -24,7 +21,15 @@ const MyTable = () => {
     },
   ];
 
-  return <Table dataSource={data} columns={columns} />;
+  return (
+    <div className={styles.table}>
+      <Table
+        dataSource={data}
+        columns={columns}
+        pagination={{ current: page, onChange: (val) => setPage(val) }}
+      />
+    </div>
+  );
 };
 
 export default MyTable;
